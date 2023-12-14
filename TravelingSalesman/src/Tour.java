@@ -1,10 +1,10 @@
 /**
  * <pre>
- * Name:
+ * Name: Rui Meng
  * Mrs. Kankelborg
- * Period
+ * Period 1
  * Project 1 Traveling Salesman
- * Last Revised on: 
+ * Last Revised on: 12/15/2023 
  * </pre>
  */
 public class Tour
