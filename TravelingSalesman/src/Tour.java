@@ -4,7 +4,7 @@
  * Mrs. Kankelborg
  * Period 1
  * Project 1 Traveling Salesman
- * Last Revised on: 1/2/2024 
+ * Last Revised on: 1/3/2024 
  * </pre>
  */
 public class Tour
@@ -39,19 +39,18 @@ public class Tour
     public Tour(Point a, Point b, Point c, Point d)
     {
     	home.data = a;
-    	home.next.next = new Node();
+    	home.next = new Node();
     	
     	home.next.data = b;
-    	home.next.next.next = new Node();
+    	home.next.next = new Node();
     	
     	home.next.next.data = c;
-    	home.next.next.next.next = new Node();
+    	home.next.next.next = new Node();
     	
     	home.next.next.next.data = d;
     	home.next.next.next.next = new Node();
     	
-    	home.next.next.next.next = home;
-    	home.next.next = new Node();
+    	home.next.next.next.next.next = home;
     	
     	size = 4;
     }
@@ -61,6 +60,14 @@ public class Tour
      */
     public int size()
     {
+    	int size = 0;
+        Node current = home;
+        
+        while (current != null && current.next != home) {
+            size += 1;
+            current = current.next;
+        }
+        
         return size;
     }
 
@@ -108,6 +115,7 @@ public class Tour
     public void draw()
     {
     	Node current = home;
+    	
         while (current != null && current.next != home) {
             current.data.drawTo(current.next.data);
             current = current.next;
