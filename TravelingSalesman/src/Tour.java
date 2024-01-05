@@ -122,7 +122,30 @@ public class Tour
      */
     public void insertNearest(Point p)
     {
-    	
+	    if (home == null) {
+	        home = new Node();
+	        home.next = home;
+	        size = 1;
+	    } else {
+	        Node nearest = home;
+	        Node current = home;
+	        double minDistance = Double.MAX_VALUE;
+
+	        while (true) {
+	            double distance = current.data.distanceTo(p);
+	            if (distance < minDistance) {
+	                minDistance = distance;
+	                nearest = current;
+	            }
+	            current = current.next;
+	            if (current == home) break; // Exit condition
+	        }
+
+	        Node newNode = new Node();
+	        newNode.next = nearest.next;
+	        nearest.next = newNode;
+	        size++;
+	    }
     }
 
     /**
@@ -130,5 +153,30 @@ public class Tour
      */
     public void insertSmallest(Point p)
     {
+    	    if (home == null) {
+    	        home = new Node();
+    	        home.next = home;
+    	        size = 1;
+    	    } else {
+    	        Node smallestIncreaseNode = home;
+    	        Node current = home;
+    	        double smallestIncrease = Double.MAX_VALUE;
+
+    	        while (true) {
+    	            double increase = current.data.distanceTo(p) + p.distanceTo(current.next.data) - current.data.distanceTo(current.next.data);
+    	            if (increase < smallestIncrease) {
+    	                smallestIncrease = increase;
+    	                smallestIncreaseNode = current;
+    	            }
+    	            current = current.next;
+    	            if (current == home) break; // Exit condition
+    	        }
+
+    	        Node newNode = new Node();
+    	        newNode.next = smallestIncreaseNode.next;
+    	        smallestIncreaseNode.next = newNode;
+    	        size++;	    
+    	}
+
     }
 }
