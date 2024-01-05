@@ -20,14 +20,10 @@ public class Tour {
 
     public Tour(Point a, Point b, Point c, Point d) {
         home = new Node(a);
-        Node bNode = new Node(b);
-        Node cNode = new Node(c);
-        Node dNode = new Node(d);
-
-        home.next = bNode;
-        bNode.next = cNode;
-        cNode.next = dNode;
-        dNode.next = home;
+        home.next = new Node(b);
+        home.next.next = new Node(c);
+        home.next.next.next = new Node(d);
+        home.next.next.next.next = home;
         
         size = 4;
     }
@@ -37,15 +33,15 @@ public class Tour {
     }
 
     public double length() {
-        double totalLength = 0;
+        double length = 0;
         if (home != null) {
             Node current = home;
             do {
-                totalLength += current.data.distanceTo(current.next.data);
+                length += current.data.distanceTo(current.next.data);
                 current = current.next;
             } while (current != home);
         }
-        return totalLength;
+        return length;
     }
 
     public String toString() {
