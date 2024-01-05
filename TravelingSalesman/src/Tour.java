@@ -1,182 +1,127 @@
-/**
- * <pre>
- * Name: Rui Meng
- * Mrs. Kankelborg
- * Period 1
- * Project 1 Traveling Salesman
- * Last Revised on: 1/3/2024 
- * </pre>
- */
-public class Tour
-{
-    /** 
-    * Internal Node class - you may add constructors
-    */
-    private class Node
-    {
+public class Tour {
+    private class Node {
         private Point data;
         private Node next;
-    }
-    
-    /**
-    * Required fields
-    */
-    private Node home;
-    private int size;
-    
-    /**
-     * Creates an empty tour.
-     */
-    public Tour()
-    {
-    	home = null;
-    	size = 0;
+
+        // Constructor for Node
+        public Node(Point data) {
+            this.data = data;
+            this.next = null;
+        }
     }
 
-    /**
-     * Creates the 4-point tour a->b->c->d->a (for debugging)
-     */
-    public Tour(Point a, Point b, Point c, Point d)
-    {
-    	home.data = a;
-    	home.next = new Node();
-    	
-    	home.next.data = b;
-    	home.next.next = new Node();
-    	
-    	home.next.next.data = c;
-    	home.next.next.next = new Node();
-    	
-    	home.next.next.next.data = d;
-    	home.next.next.next.next = new Node();
-    	
-    	home.next.next.next.next.next = home;
-    	
-    	size = 4;
+    private Node home;
+    private int size;
+
+    public Tour() {
+        home = null;
+        size = 0;
     }
-    
-    /**
-     * Returns the number of points in this tour.
-     */
-    public int size()
-    {
+
+    public Tour(Point a, Point b, Point c, Point d) {
+        home = new Node(a);
+        Node bNode = new Node(b);
+        Node cNode = new Node(c);
+        Node dNode = new Node(d);
+
+        home.next = bNode;
+        bNode.next = cNode;
+        cNode.next = dNode;
+        dNode.next = home;
+        
+        size = 4;
+    }
+
+    public int size() {
         return size;
     }
 
-    /**
-     * Returns the length of this tour.
-     */
-    public double length()
-    {
- 	    double totalLength = 0;
-        Node current = home;
-        
-        while (current != null && current.next != home) {
-            totalLength += current.data.distanceTo(current.next.data);
-            current = current.next;
+    public double length() {
+        double totalLength = 0;
+        if (home != null) {
+            Node current = home;
+            do {
+                totalLength += current.data.distanceTo(current.next.data);
+                current = current.next;
+            } while (current != home);
         }
-        if (current != null) {
-            totalLength += current.data.distanceTo(home.data);
-        }
-        
         return totalLength;
     }
 
-    /**
-     * Returns a string representation of this tour.
-     */
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        Node current = home;
-        while (current != null && current.next != home) {
-            sb.append(current.data.toString()).append(" -> ");
-            current = current.next;
-        }
-        if (current != null) {
-            sb.append(current.data.toString()).append(" -> ");
-            sb.append(home.data.toString()); // Closing the loop
+        if (home != null) {
+            Node current = home;
+            do {
+                sb.append(current.data.toString());
+                if (current.next != home) {
+                    sb.append(" -> ");
+                }
+                current = current.next;
+            } while (current != home);
         }
         return sb.toString();
-    
     }
 
-    /**
-     * Draws this tour to standard drawing.
-     */
-    public void draw()
-    {
-    	Node current = home;
-    	
-        while (current != null && current.next != home) {
-            current.data.drawTo(current.next.data);
-            current = current.next;
-        }
-        if (current != null) {
-            current.data.drawTo(home.data); // Closing the loop
+    public void draw() {
+        if (home != null) {
+            Node current = home;
+            do {
+                current.data.drawTo(current.next.data);
+                current = current.next;
+            } while (current != home);
         }
     }
 
-    /**
-     * Inserts p into the tour using the nearest neighbor heuristic.
-     */
-    public void insertNearest(Point p)
-    {
-	    if (home == null) {
-	        home = new Node();
-	        home.next = home;
-	        size = 1;
-	    } else {
-	        Node nearest = home;
-	        Node current = home;
-	        double minDistance = Double.MAX_VALUE;
+    public void insertNearest(Point p) {
+        if (home == null) {
+            home = new Node(p);
+            home.next = home;
+            size = 1;
+        } else {
+            Node nearest = home;
+            Node current = home;
+            double minDistance = Double.MAX_VALUE;
 
-	        while (true) {
-	            double distance = current.data.distanceTo(p);
-	            if (distance < minDistance) {
-	                minDistance = distance;
-	                nearest = current;
-	            }
-	            current = current.next;
-	            if (current == home) break; // Exit condition
-	        }
+            do {
+                double distance = current.data.distanceTo(p);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearest = current;
+                }
+                current = current.next;
+            } while (current != home);
 
-	        Node newNode = new Node();
-	        newNode.next = nearest.next;
-	        nearest.next = newNode;
-	        size++;
-	    }
+            Node newNode = new Node(p);
+            newNode.next = nearest.next;
+            nearest.next = newNode;
+            size++;
+        }
     }
 
-    /**
-     * Inserts p into the tour using the smallest increase heuristic.
-     */
-    public void insertSmallest(Point p)
-    {
-    	    if (home == null) {
-    	        home = new Node();
-    	        home.next = home;
-    	        size = 1;
-    	    } else {
-    	        Node smallestIncreaseNode = home;
-    	        Node current = home;
-    	        double smallestIncrease = Double.MAX_VALUE;
+    public void insertSmallest(Point p) {
+        if (home == null) {
+            home = new Node(p);
+            home.next = home;
+            size = 1;
+        } else {
+            Node smallestIncreaseNode = home;
+            Node current = home;
+            double smallestIncrease = Double.MAX_VALUE;
 
-    	        while (true) {
-    	            double increase = current.data.distanceTo(p) + p.distanceTo(current.next.data) - current.data.distanceTo(current.next.data);
-    	            if (increase < smallestIncrease) {
-    	                smallestIncrease = increase;
-    	                smallestIncreaseNode = current;
-    	            }
-    	            current = current.next;
-    	            if (current == home) break; // Exit condition
-    	        }
+            do {
+                double increase = current.data.distanceTo(p) + p.distanceTo(current.next.data) - current.data.distanceTo(current.next.data);
+                if (increase < smallestIncrease) {
+                    smallestIncrease = increase;
+                    smallestIncreaseNode = current;
+                }
+                current = current.next;
+            } while (current != home);
 
-    	        Node newNode = new Node();
-    	        newNode.next = smallestIncreaseNode.next;
-    	        smallestIncreaseNode.next = newNode;
-    	        size++;	    
-    	}
-
+            Node newNode = new Node(p);
+            newNode.next = smallestIncreaseNode.next;
+            smallestIncreaseNode.next = newNode;
+            size++;
+        }
     }
 }
