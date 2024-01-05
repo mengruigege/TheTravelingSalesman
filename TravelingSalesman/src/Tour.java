@@ -60,13 +60,6 @@ public class Tour
      */
     public int size()
     {
-        Node current = home;
-        
-        while (current != null && current.next != home) {
-            size += 1;
-            current = current.next;
-        }
-        
         return size;
     }
 
