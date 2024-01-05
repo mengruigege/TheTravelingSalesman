@@ -55,18 +55,22 @@ public class Tour {
     }
 
     public String toString() {
-	    StringBuilder sb = new StringBuilder();
-	    if (home != null) {
-	        Node current = home;
-	        do {
-	            sb.append(current.data.toString());
-	            current = current.next;
-	            if (current != home) {
-	                sb.append("\n");
-	            }
-	        } while (current != home);
-	    }
-	    return sb.toString();
+        if (home == null) {
+            return null; // Return null for an empty tour
+        }
+
+        StringBuilder sb = new StringBuilder();
+        Node current = home;
+        do {
+            sb.append(current.data.toString());
+            current = current.next;
+            // Append a newline if not the last point or if the tour has only one point
+            if (current != home || home.next == home) {
+                sb.append("\n");
+            }
+        } while (current != home);
+
+        return sb.toString();
     }
 
     public void draw() {
