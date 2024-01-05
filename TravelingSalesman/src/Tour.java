@@ -1,3 +1,13 @@
+/**
+ * <pre>
+ * Name: Rui Meng
+ * Mrs. Kankelborg
+ * Period 1
+ * Project 1 Traveling Salesman
+ * Last Revised on: 1/5/2024 
+ * </pre>
+ */
+
 public class Tour {
     private class Node {
         private Point data;
