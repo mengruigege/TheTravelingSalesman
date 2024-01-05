@@ -55,22 +55,19 @@ public class Tour {
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        if (home != null) {
-            Node current = home;
-            do {
-                sb.append(current.data.toString());
-                if (current.next != home) {
-                    sb.append(" -> ");
-                } else {
-                    sb.append("\n"); // Add newline character at the end of the tour
-                }
-                current = current.next;
-            } while (current != home);
-        }
-        return sb.toString();
+	    StringBuilder sb = new StringBuilder();
+	    if (home != null) {
+	        Node current = home;
+	        do {
+	            sb.append(current.data.toString());
+	            current = current.next;
+	            if (current != home) {
+	                sb.append("\n");
+	            }
+	        } while (current != home);
+	    }
+	    return sb.toString();
     }
-
 
     public void draw() {
         if (home != null) {
