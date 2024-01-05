@@ -62,12 +62,15 @@ public class Tour {
                 sb.append(current.data.toString());
                 if (current.next != home) {
                     sb.append(" -> ");
+                } else {
+                    sb.append("\n"); // Add newline character at the end of the tour
                 }
                 current = current.next;
             } while (current != home);
         }
         return sb.toString();
     }
+
 
     public void draw() {
         if (home != null) {
