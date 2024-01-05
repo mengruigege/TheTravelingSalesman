@@ -63,11 +63,8 @@ public class Tour {
         Node current = home;
         do {
             sb.append(current.data.toString());
+            sb.append("\n"); // Append a newline after each point
             current = current.next;
-            // Append a newline if not the last point or if the tour has only one point
-            if (current != home || home.next == home) {
-                sb.append("\n");
-            }
         } while (current != home);
 
         return sb.toString();
