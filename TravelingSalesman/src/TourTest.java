@@ -39,34 +39,41 @@ public class TourTest
     @Test
     public void testLengthFourPoints() {
         double expectedLength = 4.0; // Assuming each side of the square is of length 1
-        assertEquals("Expected length to be 4.0 for a four-point tour", expectedLength, fourPointTour.length(), 0.0);
+        assertEquals("Expected length to be 4.0 for a four-point tour", expectedLength,
+        		fourPointTour.length(), 0.0);
     }
 
     @Test
     public void testToStringEmpty() {
-        assertNull("Expected string representation to be null for an empty tour", emptyTour.toString());
+        assertNull("Expected string representation to be null for an empty tour",
+        		emptyTour.toString());
     }
 
     @Test
     public void testToStringFourPoints() {
-        String expected = a.toString() + "\n" + b.toString() + "\n" + c.toString() + "\n" + d.toString() + "\n";
-        assertEquals("Expected specific string representation for a four-point tour", expected, fourPointTour.toString());
+        String expected = a.toString() + "\n" + b.toString() + "\n" + c.toString() +
+        		"\n" + d.toString() + "\n";
+        assertEquals("Expected specific string representation for a four-point tour",
+        		expected, fourPointTour.toString());
     }
     
     @Test
     public void testInsertNearestEmpty() {
         Point newPoint = new Point(2, 2);
         emptyTour.insertNearest(newPoint);
-        assertEquals("Expected size to be 1 after inserting into an empty tour", 1, emptyTour.size());
+        assertEquals("Expected size to be 1 after inserting into an empty tour", 1,
+        		emptyTour.size());
         String expectedString = newPoint.toString() + "\n";
-        assertEquals("Expected string representation after inserting one point", expectedString, emptyTour.toString());
+        assertEquals("Expected string representation after inserting one point",
+        		expectedString, emptyTour.toString());
     }
 
     @Test
     public void testInsertNearestNonEmpty() {
         Point newPoint = new Point(0, 0.5); // Closest to Point a
         fourPointTour.insertNearest(newPoint);
-        assertEquals("Expected size to increase by 1 after inserting into four-point tour", 5, fourPointTour.size());
+        assertEquals("Expected size to increase by 1 after inserting into four-point tour",
+        		5, fourPointTour.size());
         // Additional checks can be added here to verify the correct insertion position
     }
 
@@ -74,17 +81,20 @@ public class TourTest
     public void testInsertSmallestEmpty() {
         Point newPoint = new Point(2, 2);
         emptyTour.insertSmallest(newPoint);
-        assertEquals("Expected size to be 1 after inserting into an empty tour", 1, emptyTour.size());
+        assertEquals("Expected size to be 1 after inserting into an empty tour", 1,
+        		emptyTour.size());
         String expectedString = newPoint.toString() + "\n";
-        assertEquals("Expected string representation after inserting one point", expectedString, emptyTour.toString());
+        assertEquals("Expected string representation after inserting one point",
+        		expectedString, emptyTour.toString());
     }
 
     @Test
     public void testInsertSmallestNonEmpty() {
-        Point newPoint = new Point(0, 0.5); // Expected to cause the smallest increase when inserted next to Point a
+        Point newPoint = new Point(0, 0.5);
+        // Expected to cause the smallest increase when inserted next to Point a
         fourPointTour.insertSmallest(newPoint);
-        assertEquals("Expected size to increase by 1 after inserting into four-point tour", 5, fourPointTour.size());
-        // Additional checks can be added here to verify the correct insertion position
+        assertEquals("Expected size to increase by 1 after inserting into four-point tour",
+        		5, fourPointTour.size());    
     }
 
     // Add more tests here.

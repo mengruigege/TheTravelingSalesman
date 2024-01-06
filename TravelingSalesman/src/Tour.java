@@ -71,7 +71,8 @@ public class Tour {
         if (home != null) {
             Node n = home;
             do {
-                length += n.data.distanceTo(n.next.data); // Add the distance between consecutive nodes
+                length += n.data.distanceTo(n.next.data);
+                // Add the distance between consecutive nodes
                 n = n.next;
             } while (n != home); // Loop until the tour completes a cycle
         }
@@ -165,8 +166,10 @@ public class Tour {
     	        double minD = Double.MAX_VALUE; // Track the smallest distance increase found
 
     	        do {
-    	            // Calculate the increase in distance if the point is inserted between current node and the next node
-    	            double dis = n.data.distanceTo(p) + p.distanceTo(n.next.data) - n.data.distanceTo(n.next.data);
+    	            // Calculate the increase in distance if the point is inserted between
+    	        	// current node and the next node
+    	            double dis = n.data.distanceTo(p) + p.distanceTo(n.next.data) -
+    	            		n.data.distanceTo(n.next.data);
     	            // If this increase is the smallest, update the insertion point and minD
     	            if (dis < minD) {
     	                minD = dis;
